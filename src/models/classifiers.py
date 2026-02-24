@@ -12,17 +12,23 @@ class SkinLesionClassifier(nn.Module):
         pretrained: Whether to load ImageNet pretrained weights
     """
 
-    def __init__(self, model_name="facebook/deit-base-distilled-patch16-224", num_classes=7):
+    def __init__(self, model_name="facebook/deit-base-distilled-patch16-224", num_classes=7, pretrained=True):
         super().__init__()
         self.model_name = model_name
         self.num_classes = num_classes
 
-        # Load pretrained model and modify classification head
-        self.model = DeiTForImageClassification.from_pretrained(
-            model_name,
-            num_labels=num_classes,
-            ignore_mismatched_sizes=True  # Allows replacing the head
-        )
+        if pretrained:
+            # Load pretrained model and modify classification head
+            self.model = DeiTForImageClassification.from_pretrained(
+                model_name,
+                num_labels=num_classes,
+                ignore_mismatched_sizes=True  # Allows replacing the head
+            )
+        else:
+            # Load from scratch
+            config = DeiTConfig.from_pretrained(model_name)
+            config.num_labels = num_classes
+            self.model = DeiTForImageClassification(config)
 
     def forward(self, x):
         """        

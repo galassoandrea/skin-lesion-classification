@@ -35,8 +35,13 @@ def main():
     set_seed(ARGS['seed'])
 
     # Define data paths
-    csv_path = Path("../data/splits")
-    image_dir = Path("../data/processed")
+    csv_path = Path("data/splits")
+    image_dir = Path("data/processed")
+
+    # Create class_to_idx mapping from training data
+    train_df = pd.read_csv(csv_path / "train.csv")
+    unique_classes = sorted(train_df['dx'].unique())
+    class_to_idx = {cls: idx for idx, cls in enumerate(unique_classes)}
 
     # Load PyTorch Datasets
     train_dataset = SkinLesionDataset(
@@ -72,7 +77,7 @@ def main():
     # Load pretrained model with custom classification head
     print("\nInitializing model...")
     model = SkinLesionClassifier(model_name=ARGS['model_name'])
-    model = model.to(device)
+    model = model.to(ARGS['device'])
 
     # Count and print the number of parameters
     total_params = sum(p.numel() for p in model.parameters())
@@ -82,7 +87,8 @@ def main():
 
     # Initialize loss function with class weights
     criterion = get_weighted_loss(
-        class_weights_path=csv_path / "class_weights.json",
+        weights_path=csv_path / "class_weights.json",
+        class_to_idx=class_to_idx,
         device=ARGS['device']
     )
 

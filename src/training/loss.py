@@ -23,7 +23,7 @@ def get_weighted_loss(weights_path, class_to_idx, device):
     weights = torch.zeros(num_classes)
 
     # Assign weights and move to device
-    for class_name, idx in class_to_idx:
+    for class_name, idx in class_to_idx.items():
         weights[idx] = weights_dict[class_name]
     weights = weights.to(device)
 
