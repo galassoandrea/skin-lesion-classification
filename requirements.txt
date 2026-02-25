@@ -9,3 +9,4 @@ matplotlib
 Pillow
 albumentations
 transformers
+seaborn

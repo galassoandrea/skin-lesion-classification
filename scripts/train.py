@@ -1,3 +1,8 @@
+"""
+Training script for skin lesion classifier.
+Run from project root: python -m scripts.train
+"""
+
 import pandas as pd
 import numpy as np
 import torch

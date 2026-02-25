@@ -1,3 +1,7 @@
 data
 .venv
 .env
+checkpoints
+__pycache__
+classification_report.json
+test_results.json
