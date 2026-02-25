@@ -59,3 +59,10 @@ Below are reported the results obtained during the model evaluation on the test 
 - AUC = 0.9512
 
 ![Confusion Matrix](outputs/confusion_matrix.png)
+
+Apparently, the fine-tuned model achieves a very high AUC but a significantly lower F1-score suggesting that, while it can in general predict the correct class, it struggles with rarer classes.
+In other words, the accuracy is highly carried by the nv (Melanocytic nevi) class, which represents more than half of the dataset.
+
+Additionally, from the confusion matrix it is possible to see that in some cases, the misprediction can fall in less frequent categories (look at akiec-bcc or akiec-mel). In part I expected this, since medical datasets can be very complex and during the EDA step it emerged that images belonging to different diagnostic categories, can be very similar between them, making it hard to distinguish classes even for humans.
+
+Anyway, please keep in mind that **the current version is just the first version of the project**, which will likely see further updates and improvements in the next days/weeks.
