@@ -3,6 +3,7 @@
 ## 📖 Overview
 
 The objective of this project is to fine-tune a transformer-based pretrained model for the task of Skin Lesion Classification in medical images.
+You can test the fine-tuned classifier at the link https://huggingface.co/spaces/andreagalasso99/skin-lesion-classifier-deit
 
 ## 🛠️ Technical Details
 
